@@ -1,41 +1,44 @@
 badgeTemplate = Handlebars.compile([
   // container
-  "<div class='previewBadge sc-border-dark sc-clearfix' style='display:block; background-color:white; width:auto overflow:hidden;'>",
+  "<div class='previewBadge sc-border-dark sc-clearfix' style='position:absolute; display:block; background-color:white; width:400px; overflow:hidden; z-index=1000000;'>",
     // top section
     "<div class='sc-border-light-bottom sc-clearfix'>",
       "<div class='userImageBadge userBadge__avatar sc-media-image medium' style='float:left;'>",
-        "<a href='{{permalink}}'>",
+        "<a href='/{{permalink}}'>",
           "<div class='image image__hasPlaceholder image__hasPlaceholder-50 image__hasPlaceholder-user' style='height:50px; width:50px'>",
             "<img src='{{avatar_url}}' class='image__full g-opacity-transition' width='50' height='50'>",
+            "{{#if online}}",
+              "<span class='sc-icon-online sc-icon-small userImageBadge__online'></span>",
+            "{{/if}}",
           "</div>",
         "</a>",
       "</div>",
       "<div style='float:right; display:block;'>",
         "<h3 class='userBadge__Title sc-font'>",
-          "<a href='{{permalink}}' class='sc-link-dark'>{{username}}</a>",
+          "<a href='/{{permalink}}' class='sc-link-dark'>{{username}}</a>",
         "</h3>",
         "<br>",
         "<ul class='stats sc-list-nostyle sc-clearfix userStats stats__large'>",
           "<li class='stats__item'>",
-            "<a href='{{permalink}}'>",
+            "<a href='/{{permalink}}'>",
               "<span class='sc-ministats-icon-sounds sc-ministats-icon-large sc-border-right-dark sc-ir'>Sounds:</span>",
               "{{track_count}}",
             "</a>",
           "</li>",
           "<li class='stats__item'>",
-            "<a href='{{permalink}}/followers'>",
+            "<a href='/{{permalink}}/followers'>",
               "<span class='sc-ministats-icon-followers sc-ministats-icon-large sc-border-right-dark sc-ir'>Followers:</span>",
               "{{followers_count}}",
             "</a>",
           "</li>",
           "<li class='stats__item'>",
-            "<a href='{{permalink}}/likes'>",
+            "<a href='/{{permalink}}/likes'>",
               "<span class='sc-icon-like-dark sc-icon-large sc-border-right-dark sc-ir'>Likes:</span>",
               "{{public_favorites_count}}",
             "</a>",
           "</li>",
           "<li class='stats__item'>",
-            "<a href='{{permalink}}/following'>",
+            "<a href='/{{permalink}}/following'>",
               "<span class='sc-icon-following-dark sc-icon-large sc-border-right-dark sc-ir'>Followings:</span>",
               "{{followings_count}}",
             "</a>",
@@ -48,14 +51,12 @@ badgeTemplate = Handlebars.compile([
         "{{full_name}} - {{city}}, {{country}}",
       "</span>",
         "<br>",
-      "<span class='userInfo__details sc-text-light sc-truncate'>",
+      "<span class='userInfo__details sc-text-light sc-truncate' style='overflow:hidden;'>",
         "{{description}}",
       "</span>",
     "</div>",
   "</div>"].join('\n'));
 
-//todo: add links to the stats: tracks, followers, following, & faves
-/////// more info: description, location, ???
+//todo: more info???
 /////// fix dimensions - this is probably a late-stage polish once contents are set.
-/////// background is wonky
 /////// full_name & loc span needs logic/helpers to deal with missing vals.

@@ -8,8 +8,10 @@ $(function() {
   $('body').on('mouseenter', 
     selectors + ':not(.previewBadge)', 
     function(event) { 
+      forceVisibility(this);
       buildPreview(this); 
       });
+  if (!dev) {
   $('body').on('mouseleave', 
     selectors + '.previewBadge', 
       function(event) {
@@ -20,13 +22,23 @@ $(function() {
           $(this).siblings().remove('.previewBadge');
           //      }, 750);
         }
+  });
+  }
+  if (dev) {
+    $('body').prepend("<button class='clearPreview' onclick='#'>Clear Badges</button>");
+    $('.clearPreview').on('click', function() {$('body').remove('.previewBadge')});
+  }
         //todo: stop execution on buildPreview if mouseleave before setTimeout.
         //todo: figure out something that both prevents recursion
         ///////   AND doesn't remove the badge until mouse has left 
         ///////   BOTH the triggering element AND the badge.
-  });
 });
 
+function forceVisibility(el) {
+  //may be best to determine which elements to change on a per-class basis (like findLink below)
+  //also would be nice to make this a toggle-style deal, returning doc to original state.
+  return true;
+}
 
 function findLink(el) {
   var jel = $(el);
