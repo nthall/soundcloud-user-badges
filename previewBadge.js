@@ -5,13 +5,20 @@ selectors = ".userImageBadge, .soundTitle__username, .userBadge__title, .comment
 
 $(function() {
     SC.initialize({client_id: client_id});
-    // testing :p
-    buildPreview('/agalma');
-    $('body').on('mouseenter', selectors, function(event) { 
-        var link = findLink(this);
-        var prvw = buildPreview(link);        
-    });
-    // todo: add binding for mouseleave to hide the thing.
+    $('body').on('mouseenter', 
+        selectors, 
+        function(event) { 
+            cl(this);
+            buildPreview(this); 
+        });
+    $('body').on('mouseleave', 
+        selectors + '.previewBadge', 
+        function(event) {
+            cl('hiding:');
+            cl($('.previewBadge', this));
+            $(this).remove('.previewbadge');
+            //todo: stop execution on buildPreview if mouseleave before setTimeout.
+        });
 });
 
 
@@ -21,7 +28,7 @@ function findLink(el) {
         if (jel.hasClass('userBadge__avatar') || jel.hasClass('small')) {
             link = $('a', jel).attr('href');
         } else if (jel.hasClass('xlarge')) {
-        link = $('h1', jel.parent().parent()).text().trim().split(' ')[0].toLowerCase; //might be preferable to simply unbind the handler for these, esp if we can verify they only show up on own_profile pages.
+        link = $('h1', jel.parent().parent()).text().trim().split(' ')[0].toLowerCase(); //might be preferable to simply unbind the handler for these, esp if we can verify they only show up on own_profile pages.
         }
     } else if (jel.hasClass('userBadge__title')) {
         link = $('a', jel).attr('href'); //same as that thing above - maybe merge those as default (final else?) 
@@ -34,8 +41,16 @@ function findLink(el) {
     return link;
 }
 
-function buildPreview(user) {
-    SC.get('/resolve', {url: root_url + user}, function(res) {cl(res);});
+function buildPreview(el) {
+    user = findLink(el);
+    SC.get('/resolve', 
+        {url: root_url + user}, 
+        function(res) {
+            setTimeout(function() {
+                var prvw = badgeTemplate(res);
+                $(el).append(prvw);
+                }, 1000);
+            });
 }
 
 function cl(msg) {if (dev) {console.log(msg);}}

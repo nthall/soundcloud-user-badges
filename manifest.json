@@ -5,7 +5,11 @@
     "description": "Creates a Facebook-style preview when hovering over a user's name or avatar image on Soundcloud - currently only supports Soundcloud Next.",
     "content_scripts": [{
         "matches": ["*://soundcloud.com/*"],
-        "js": ["jquery-1.7.2.min.js", "sc-sdk.js", "previewBadge.js"]
+        "js": ["jquery-1.7.2.min.js", 
+                "sc-sdk.js", 
+                "handlebars-1.0.0.beta.6.js", 
+                "badgeTemplate.js", 
+                "previewBadge.js"]
     }],
     "permissions": [
         "http://www.google.com/",
