@@ -6,7 +6,7 @@ selectors = ".userImageBadge, .soundTitle__username, .userBadge__title, .comment
 $(function() {
     SC.initialize({client_id: client_id});
     $('body').on('mouseenter', 
-        selectors, 
+        selectors + ':not(.previewBadge)', 
         function(event) { 
             cl(this);
             buildPreview(this); 
@@ -48,7 +48,7 @@ function buildPreview(el) {
         function(res) {
             setTimeout(function() {
                 var prvw = badgeTemplate(res);
-                $(el).append(prvw);
+                $(el).after(prvw);
                 }, 1000);
             });
 }
