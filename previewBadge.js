@@ -30,11 +30,13 @@ function findLink(el) {
 
 function getCommentCount(user_id) {
   comment_count = 0;
+  done_counting = false;
   do {
     SC.get('/users/' + user_id + '/comments',
+      {limit: 200, offset: comment_count},
       function (comments) {
         comment_count += comments.length;
-        if comments.length < 200 {
+        if (comments.length < 200) {
           done_counting = true;
         }
       }
