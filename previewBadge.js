@@ -15,12 +15,7 @@ function forceVisibility(el) {
 function findLink(el) {
   var jel = $(el);
   if (jel.hasClass('userImageBadge')) {
-    if (jel.hasClass('userBadge__avatar') || jel.hasClass('small')) {
-      link = $('a', jel).attr('href');
-    } else if (jel.hasClass('xlarge')) {
-      link = $('h1', jel.parent().parent()).text().trim().split(' ')[0].toLowerCase(); //might be preferable to simply unbind the handler for these, esp if we can verify they only show up on own_profile pages.
-      link = '/' + link;
-    }
+    link = $('a', jel).attr('href');
   } else if (jel.hasClass('userBadge__title')) {
     link = $('a', jel).attr('href'); //same as that thing above - maybe merge those as default (final else?) 
   } else if (el.hasAttribute('href')) {
@@ -33,11 +28,28 @@ function findLink(el) {
   return link;
 }
 
+function getCommentCount(user_id) {
+  comment_count = 0;
+  do {
+    SC.get('/users/' + user_id + '/comments',
+      function (comments) {
+        comment_count += comments.length;
+        if comments.length < 200 {
+          done_counting = true;
+        }
+      }
+    );
+  } while (!done_counting);
+  return comment_count;
+}
+
 function buildPreview(el) {
   user = findLink(el);
   SC.get('/resolve', 
     {url: root_url + user}, 
     function(res) {
+      res.avatar_url = res.avatar_url.replace('http:', 'https:');
+      res.comment_count = getCommentCount(res.id);
       setTimeout(function() {
         var prvw = badgeTemplate(res);
         $(el).after(prvw);
