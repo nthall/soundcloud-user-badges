@@ -1,8 +1,10 @@
 dev = true;
 client_id = "44361aaca81d0d37fa071536376d14d4";
 root_url = "https://soundcloud.com";
-selectors = ".userImageBadge, .soundTitle__username, .userBadge__title, .commentItem > .sc-media-image, .commentItem > .commentItem__content > .commentItem__body > .sc-text-light, .commentBadge__body > a, .userNetworkInfo__imageLink";
-
+selectors = ".userImageBadge:not(.xlarge, .previewBadge > div > .userImageBadge), .soundTitle__username, .userBadge__title:not(.previewBadge > div > h3.userBadge__title), .commentItem > .sc-media-image, .commentItem > .commentItem__content > .commentItem__body > .sc-type-light, .commentBadge__body > a, .userNetworkInfo__imageLink";
+var showTimer;
+var hideTimer;
+var params;
 
 function forceVisibility(el) {
   //may be best to determine which elements to change on a per-class basis (like findLink below)
