@@ -1,6 +1,6 @@
 badgeTemplate = Handlebars.compile([
   // container
-  "<div class='previewBadge sc-border-dark sc-clearfix' style='position:absolute; display:block; background-color:white; width:400px; overflow:hidden; z-index=1000000;'>",
+  "<div class='previewBadge sc-border-dark sc-clearfix' style='position:absolute; display:block; background-color:white; width:400px; overflow:hidden; z-index:10;'>",
     // top section
     "<div class='sc-border-light-bottom sc-clearfix'>",
       "<div class='userImageBadge userBadge__avatar sc-media-image medium' style='float:left;'>",
@@ -60,3 +60,4 @@ badgeTemplate = Handlebars.compile([
 //todo: more info???
 /////// fix dimensions - this is probably a late-stage polish once contents are set.
 /////// full_name & loc span needs logic/helpers to deal with missing vals.
+/////// add truncation of some kind to description.
