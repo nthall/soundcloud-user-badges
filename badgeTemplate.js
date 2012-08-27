@@ -1,6 +1,6 @@
 badgeTemplate = Handlebars.compile([
   // container
-  "<div class='previewBadge sc-border-dark sc-clearfix' style='position:absolute; display:block; background-color:white; width:400px; overflow:hidden; z-index:10;'>",
+  "<div class='previewBadge sc-border-dark sc-clearfix' style='position:absolute; display:block; background-color:white; width:400px; overflow:hidden; z-index:101;'>",
     // top section
     "<div class='sc-border-light-bottom sc-clearfix'>",
       "<div class='userImageBadge userBadge__avatar sc-media-image medium' style='float:left;'>",
@@ -53,7 +53,6 @@ badgeTemplate = Handlebars.compile([
           "<li class='stats__item'>",
             "<a href='/{{permalink}}/comments'>",
               "<span class='sc-icon-comment-dark sc-icon-large sc-border-right-dark sc-ir'>Comments:</span>",
-              "{{comment_count}}",
             "</a>",
           "</li>",
         "</ul>",

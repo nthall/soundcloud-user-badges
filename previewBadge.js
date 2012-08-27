@@ -28,30 +28,12 @@ function findLink(el) {
   return link;
 }
 
-function getCommentCount(user_id) {
-  comment_count = 0;
-  done_counting = false;
-  do {
-    SC.get('/users/' + user_id + '/comments',
-      {limit: 200, offset: comment_count},
-      function (comments) {
-        comment_count += comments.length;
-        if (comments.length < 200) {
-          done_counting = true;
-        }
-      }
-    );
-  } while (!done_counting);
-  return comment_count;
-}
-
 function buildPreview(el) {
   user = findLink(el);
   SC.get('/resolve', 
     {url: root_url + user}, 
     function(res) {
       res.avatar_url = res.avatar_url.replace('http:', 'https:');
-      res.comment_count = getCommentCount(res.id);
       setTimeout(function() {
         var prvw = badgeTemplate(res);
         $(el).after(prvw);
