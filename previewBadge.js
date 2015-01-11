@@ -58,9 +58,9 @@ $(function() {
         if ($(this).hasClass('previewBadge')) {
           $(this.parent).remove(this);
         } else {
-          //  setTimeout(function() {
-          $(this).siblings().remove('.previewBadge');
-          //      }, 750);
+          setTimeout(function() {
+            $(this).siblings().remove('.previewBadge');
+          }, 750);
         }
   });
   }
